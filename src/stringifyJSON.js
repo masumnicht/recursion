@@ -4,5 +4,20 @@
 // but you don't so you're going to write it from scratch:
 
 var stringifyJSON = function(obj) {
-  // your code goes here
+  var quote = function(value) {
+    return "\"" + value + "\"";
+	};
+  if(typeof obj==='number'||typeof obj==='string'||typeof obj === 'boolean'){
+  	return  typeof obj==='number'||typeof obj === 'boolean' ? obj.toString() : '"'+obj+'"'
+  } else if (obj===null){
+  	return 'null';
+  } else if (Array.isArray(obj)){
+  	var arr = [];
+  	obj.forEach(function(el){
+  		arr.push(stringifyJSON(el))
+  	});
+  	return '['+arr.toString()+']';
+  }
 };
+
+
