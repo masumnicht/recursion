@@ -4,12 +4,10 @@
 // but you don't so you're going to write it from scratch:
 
 var stringifyJSON = function(obj) {
- //  var quote = function(value) {
- //    return "\"" + value + "\"";
-	// };
-	console.log(obj);
-  if(typeof obj==='number'||typeof obj==='string'||typeof obj === 'boolean'){
-  	return  typeof obj==='number'||typeof obj === 'boolean' ? obj.toString() : '"'+obj+'"'
+  if(typeof obj==='number' || typeof obj === 'boolean'){
+  	return obj.toString();
+  } else if (typeof obj === 'string') {
+  	return '"' + obj + '"';
   } else if (obj===null){
   	return 'null';
   } else if (Array.isArray(obj)){
@@ -17,19 +15,20 @@ var stringifyJSON = function(obj) {
   	_.each(obj, function(el){
   		arr.push(stringifyJSON(el))
   	});
-  	return '['+arr.toString()+']';
-  } else { //when object
+  	return '[' + arr.toString() + ']';
+  } else {
   	var keys = _.keys(obj);
   	var values = _.values(obj);
-  	var objstr = "{";
-  	var len = keys.length;
-  	for(var i = 0; i < len; i++) {
-  			objstr += stringifyJSON(keys[i]) + ":" + stringifyJSON(values[i]);
-  			if(i < len-1) {
-  				objstr +=','
+  	var objStr = "{";
+  	for(var i = 0; i < keys.length; i++) {
+  		if(typeof values[i] !== 'undefined' && typeof values[i] !== 'function') {
+  			objStr += stringifyJSON(keys[i]) + ":" + stringifyJSON(values[i]);
+  			if(i < keys.length-1) {
+  				objStr += ',';
   			}
+  		}
   	}
-  	return objstr + '}';
+  	return objStr + '}';
   }
 };
 
