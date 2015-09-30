@@ -4,12 +4,10 @@
 // but you don't so you're going to write it from scratch:
 
 var stringifyJSON = function(obj) {
-  if(typeof obj==='number' || typeof obj === 'boolean'){
-  	return obj.toString();
+  if(typeof obj==='number' || typeof obj === 'boolean'|| obj===null){
+  	return ''+obj;
   } else if (typeof obj === 'string') {
   	return '"' + obj + '"';
-  } else if (obj===null){
-  	return 'null';
   } else if (Array.isArray(obj)){
   	var arr = [];
   	_.each(obj, function(el){
